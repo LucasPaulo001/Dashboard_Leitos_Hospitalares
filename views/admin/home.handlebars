@@ -1,0 +1,17 @@
+<form method="GET" action="/admin/home">
+  <label for="estado">Selecione o Estado:</label>
+  <input type="text" name="estado" id="estado" placeholder="Digite o estado (Ex: PB)">
+  <button type="submit">Buscar</button>
+</form>
+
+{{#each hospitais}}
+    <h1>Hospital no estado do(a): {{this.UF}}</h1>
+  <div>
+    <h3>{{this.NOME_ESTABELECIMENTO}}</h3>
+    <p>Município: {{this.MUNICIPIO}}</p>
+    <p>Leitos SUS: {{this.LEITOS_SUS}}</p>
+    <p>Leitos Existentes: {{this.LEITOS_EXISTENTES}}</p>
+  </div>
+{{else}}
+  <p>Nenhum hospital encontrado para o estado selecionado.</p>
+{{/each}}

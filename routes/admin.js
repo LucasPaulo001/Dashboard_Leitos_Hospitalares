@@ -8,21 +8,14 @@ const Hospital = require('../models/Hospital')
 //Rotas
     router.get('/home', async (req, res) => {
         const { estado } = req.query;
-        // Verificar se 'estado' está sendo passado corretamente
-    console.log("Estado recebido:", estado);
-
-    try {
-        const hospitais = await Hospital.find({ 'UF': req.query.estado });
-    
-        // Agora, ao renderizar, passe os hospitais como um objeto para o Handlebars
-        res.render('admin/home', { hospitais: hospitais });
-      } catch (err) {
-        console.log(err);
-        res.status(500).send('Erro ao buscar hospitais');
-      }
+        try {
+            const hospitais = await Hospital.find({ 'UF': req.query.estado });
+            res.render('admin/home', { hospitais: hospitais });
+        } catch (err) {
+            console.log(err);
+            res.status(500).send('Erro ao buscar hospitais');
+        }
     });
-
-
     //Rota para salvamento dos dados do arquivo csv no banco de dados
     router.get('/import-csv', (req, res) => {
         /*const arquivoCSV = './data/leitos.csv'

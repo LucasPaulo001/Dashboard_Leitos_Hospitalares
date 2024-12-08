@@ -1,17 +1,146 @@
-<form method="GET" action="/admin/home">
-  <label for="estado">Selecione o Estado:</label>
-  <input type="text" name="estado" id="estado" placeholder="Digite o estado (Ex: PB)">
-  <button type="submit">Buscar</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HospiData</title>
+</head>
+<body>
+    <div class="container">
+    <div class="content-list">
+      <div class="search">
+          <form method="GET" action="/admin/home">
+              {{!-- <label for="estado">Estado: </label>
+              <input type="text" name="estado" id="estado" placeholder="Digite o estado (Ex: PB)"> --}}
+              <select name="estado" id="estado" required>
+                <option value="" disabled selected>Selecione um estado</option>
+                <option value="AC">AC - Acre</option>
+                  <option value="AL">AL - Alagoas</option>
+                  <option value="AP">AP - Amapá</option>
+                  <option value="AM">AM - Amazonas</option>
+                  <option value="BA">BA - Bahia</option>
+                  <option value="CE">CE - Ceará</option>
+                  <option value="DF">DF - Distrito Federal</option>
+                  <option value="ES">ES - Espírito Santo</option>
+                  <option value="GO">GO - Goiás</option>
+                  <option value="MA">MA - Maranhão</option>
+                  <option value="MT">MT - Mato Grosso</option>
+                  <option value="MS">MS - Mato Grosso do Sul</option>
+                  <option value="MG">MG - Minas Gerais</option>
+                  <option value="PA">PA - Pará</option>
+                  <option value="PB">PB - Paraíba</option>
+                  <option value="PR">PR - Paraná</option>
+                  <option value="PE">PE - Pernambuco</option>
+                  <option value="PI">PI - Piauí</option>
+                  <option value="RJ">RJ - Rio de Janeiro</option>
+                  <option value="RN">RN - Rio Grande do Norte</option>
+                  <option value="RS">RS - Rio Grande do Sul</option>
+                  <option value="RO">RO - Rondônia</option>
+                  <option value="RR">RR - Roraima</option>
+                  <option value="SC">SC - Santa Catarina</option>
+                  <option value="SP">SP - São Paulo</option>
+                  <option value="SE">SE - Sergipe</option>
+                  <option value="TO">TO - Tocantins</option>
+              </select>
+              <button type="submit" class="btnSearch">Buscar</button>
+          </form>
+      </div>
+      {{#each hospitais}}
+        <div class="content-data">
+          <div id="title">
+            <h2>Hospital no estado do(a): {{this.UF}}</h2>
+          </div>
+          <div id="data-list">
+            <h4>{{this.NOME_ESTABELECIMENTO}}</h4>
+            <p>Município: {{this.MUNICIPIO}}</p>
+            <p>Leitos SUS: {{this.LEITOS_SUS}}</p>
+            <p>Leitos Existentes: {{this.LEITOS_EXISTENTES}}</p>
+          </div>
+        </div>
+      {{else}}
+        <p>Nenhum hospital encontrado para o estado selecionado.</p>
+      {{/each}}
+    </div>
+    {{!-- local onde está configurado o gráfico --}}
+  <div class="content-graphic">
+    <canvas id="leitosChart" style="width: 600px; height: 400px;"></canvas>
 
-{{#each hospitais}}
-    <h1>Hospital no estado do(a): {{this.UF}}</h1>
-  <div>
-    <h3>{{this.NOME_ESTABELECIMENTO}}</h3>
-    <p>Município: {{this.MUNICIPIO}}</p>
-    <p>Leitos SUS: {{this.LEITOS_SUS}}</p>
-    <p>Leitos Existentes: {{this.LEITOS_EXISTENTES}}</p>
   </div>
-{{else}}
-  <p>Nenhum hospital encontrado para o estado selecionado.</p>
-{{/each}}
+</div>
+
+  <script>
+    const hospitais = {{{json hospitais}}}
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.0.0/dist/chartjs-plugin-zoom.min.js"></script>
+
+    <script>
+    const ctx = document.getElementById('leitosChart');
+    
+    // Extraindo dados para o gráfico
+    const labels = hospitais.map(hospital => hospital.NOME_ESTABELECIMENTO);
+    const leitosSUS = hospitais.map(hospital => hospital.LEITOS_SUS);
+    const leitosExistentes = hospitais.map(hospital => hospital.LEITOS_EXISTENTES);
+
+    // Criando o gráfico
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels, // Nomes dos hospitais
+        datasets: [
+          {
+            label: 'Leitos SUS',
+            data: leitosSUS,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Leitos Existentes',
+            data: leitosExistentes,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            zoom: {
+              zoom: {
+                wheel: {
+                  enabled: true 
+                },
+                drag: {
+                  enabled: true 
+                },
+                mode: 'xy', 
+                speed: 0.1 
+              },
+              pan: {
+                enabled: true, 
+                mode: 'xy', 
+                speed: 20 
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+    });
+  </script>
+</body>
+</html>
+
+

@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "chart.js": "^4.4.7",
+    "chartjs-plugin-zoom": "^2.2.0",
     "csv-parser": "^3.0.0",
     "express": "^4.21.2",
     "express-handlebars": "^8.0.1",

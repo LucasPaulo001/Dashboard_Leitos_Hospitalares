@@ -17,6 +17,9 @@ const admin = require('./routes/admin')
         runtimeOptions: {
             allowProtoPropertiesByDefault: true,
             allowProtoMethodsByDefault: true
+        },
+        helpers: {
+            json: (context) => JSON.stringify(context)
         }
     }))
     app.set('view engine', 'handlebars')

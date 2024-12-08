@@ -1,0 +1,151 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+:root{
+    --color-search: #9F88F2;
+    --color-details: #7552F2;
+    --color-details-hover: #10a836;
+    --color-details-backgroud: #F2F2F2;
+}
+body{
+    background-color: var(--color-details-backgroud);
+}
+header{
+    padding: 20px;
+    border-bottom: 5px solid var(--color-search);
+    background-color: var(--color-details);
+    color: white;
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    width: 100%;
+    display: grid;
+    height: 85vh;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+.content-list{
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    height: 95%;
+    overflow-y: scroll;
+    border-radius: 10px;
+    border-left: 3px solid var(--color-details);
+    border-bottom: 3px solid var(--color-details);
+}
+.content-data{
+    padding: 5px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-bottom: 3px solid var(--color-search);
+}
+#title h2{
+    background-color: var(--color-search);
+    color: white;
+    padding: 5px;
+    font-size: 2vw;
+    text-align: center;
+}
+#data-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+/* #leitosChart{
+    height: 450px;
+    width: 450px;
+} */
+.search{
+    position: sticky;
+    top: 0;
+    background-color: var(--color-search);
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+form{
+    width: 100%;
+}
+.searchMun{
+    width: 100%;
+}
+.search #estado, #municipio{
+    height: 35px;
+    margin: 5px 0 0;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid var(--color-details);
+}
+.btnSearch{
+    margin: 14px 0 0;
+    height: 35px;
+    width: 70px;
+    border-radius: 15px;
+    border: 1px solid var(--color-details);
+    cursor: pointer;
+    transition: .4s ease-in-out;
+}
+.search .btnSearch:hover{
+    background-color: var(--color-details-hover);
+    color: white;
+    border: 2px solid var(--color-details-backgroud);
+}
+.content-graphic{
+    height: 90%;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-details-backgroud);
+    border: 2px solid var(--color-details);
+    border-radius: 10px;
+    padding: 5px;
+}
+option{
+    background-color: var(--color-details-backgroud);
+    color: rgb(0, 0, 0);
+}
+option:hover{
+    background-color: var(--color-details) !important;
+}
+select option:hover{
+    background-color: var(--color-details) !important;
+}
+/* Estilo para a barra de rolagem (a parte inteira) */
+::-webkit-scrollbar {
+    width: 15px;
+    background-color: var(--color-details-backgroud);
+  }
+  
+  /* Estilo para o thumb (parte que se move) */
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-details); /* Cor da parte móvel */
+    border: 1px solid var(--color-search); /* Espaço ao redor da barra */
+  }
+  
+  /* Estilo ao passar o mouse sobre o thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-search); /* Cor ao passar o mouse */
+  }
+  
+  /* Estilo para o canto da barra de rolagem (em áreas de interseção) */
+  ::-webkit-scrollbar-corner {
+    background-color: #000000; /* Cor do canto */
+  }
+  
